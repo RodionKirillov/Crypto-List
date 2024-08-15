@@ -25,6 +25,11 @@ class CryptoRubListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onResume() {
+        super.onResume()
+        (parentFragment as? SelectPage)?.selectPage(page = 1)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

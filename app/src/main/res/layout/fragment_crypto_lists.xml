@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:title="@string/Cryptocurrencies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +30,21 @@
             android:id="@+id/chipsUsd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/usd" />
+            android:checkable="true"
+            android:text="@string/usd"
+            app:chipCornerRadius="16dp"
+            app:chipStrokeColor="@color/white"
+            app:rippleColor="@android:color/holo_orange_light" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipsRub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rub" />
+            android:checkable="true"
+            android:text="@string/rub"
+            app:chipCornerRadius="16dp"
+            app:chipStrokeColor="@color/white"
+            app:rippleColor="@android:color/holo_orange_light" />
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -44,8 +54,8 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chipsGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
