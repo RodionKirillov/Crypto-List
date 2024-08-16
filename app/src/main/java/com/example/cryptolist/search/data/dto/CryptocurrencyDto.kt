@@ -1,6 +1,6 @@
 package com.example.cryptolist.search.data.dto
 
-data class CryptocurrencyItem(
+data class CryptocurrencyDto(
     val ath: Int,
     val athChangePercentage: Double,
     val athDate: String,

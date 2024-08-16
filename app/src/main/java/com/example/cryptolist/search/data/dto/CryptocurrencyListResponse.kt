@@ -1,5 +1,5 @@
 package com.example.cryptolist.search.data.dto
 
 data class CryptocurrencyListResponse(
-    val cryptocurrencyList: List<CryptocurrencyItem>
+    val cryptocurrencyList: List<CryptocurrencyDto>
 ): Response()
