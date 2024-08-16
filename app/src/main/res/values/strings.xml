@@ -3,4 +3,7 @@
     <string name="Cryptocurrencies">Список криптовалют</string>
     <string name="usd">USD</string>
     <string name="rub">RUB</string>
+    <string name="error_message">Произошла какая-то ошибка :(</string>
+    <string name="restart_message">Попробуем снова?</string>
+    <string name="restart">Попробовать</string>
 </resources>
