@@ -1,0 +1,30 @@
+package com.example.cryptolist.search.data.dto
+
+data class CryptocurrencyItem(
+    val ath: Int,
+    val athChangePercentage: Double,
+    val athDate: String,
+    val atl: Double,
+    val atlChangePercentage: Double,
+    val atlDate: String,
+    val circulatingSupply: Int,
+    val currentPrice: Int,
+    val fullyDilutedValuation: Long,
+    val high24h: Int,
+    val id: String,
+    val image: String,
+    val lastUpdated: String,
+    val low24h: Int,
+    val marketCap: Long,
+    val marketCapChange24h: Long,
+    val marketCapChangePercentage24h: Double,
+    val marketCapRank: Int,
+    val maxSupply: Int,
+    val name: String,
+    val priceChange24h: Double,
+    val priceChangePercentage24h: Double,
+    val roi: Any,
+    val symbol: String,
+    val totalSupply: Int,
+    val totalVolume: Long
+)
