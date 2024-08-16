@@ -3,6 +3,7 @@ package com.example.cryptolist.search.data.api
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import com.example.cryptolist.search.data.dto.CryptocurrencySearchRequest
 import com.example.cryptolist.search.data.dto.CryptocurrencyListResponse
 import com.example.cryptolist.search.data.dto.Response
@@ -25,9 +26,12 @@ class RetrofitNetworkClient(
 
         return withContext(Dispatchers.IO) {
             try {
+                Log.d("LOG_TAG", dto.toString())
                 val resp = coingeckoApiService.getCryptocurrencyList(dto.expression)
+                Log.d("LOG_TAG", resp.toString())
                 CryptocurrencyListResponse(resp).apply { resultCode = 200 }
             } catch (e: Throwable) {
+                Log.d("LOG_TAG", "catch ${e.toString()}")
                 Response().apply { resultCode = -1 }
             }
         }
