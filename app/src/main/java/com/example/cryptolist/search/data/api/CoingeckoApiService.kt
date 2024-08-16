@@ -9,8 +9,8 @@ interface CoingeckoApiService {
 
     //https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd
 
-    @Headers("accept: application/json")
-    @GET("/coins/markets")
+//    @Headers("accept: application/json")
+    @GET("coins/markets")
     suspend fun getCryptocurrencyList(
         @Query("vs_currency") vsCurrency: String
     ): List<CryptocurrencyDto>

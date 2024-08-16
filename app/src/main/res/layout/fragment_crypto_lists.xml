@@ -50,14 +50,16 @@
     </com.google.android.material.chip.ChipGroup>
 
     <LinearLayout
+        android:id="@+id/llContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipsGroup">
+        app:layout_constraintTop_toBottomOf="@+id/chipsGroup"
+        tools:visibility="visible">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCryptocurrencies"
@@ -69,6 +71,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llError"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
@@ -112,6 +115,25 @@
             android:text="@string/restart"
             app:cornerRadius="8dp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLoading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipsGroup">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/orange_btc" />
 
     </LinearLayout>
 
