@@ -1,9 +1,7 @@
 package com.example.cryptolist.search.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.ScrollCaptureCallback
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -13,6 +11,8 @@ class CryptoListsFragment : Fragment() {
 
     private var _binding: FragmentCryptoListsBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var cryptocurrenciesAdapter: CryptocurrencyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +25,14 @@ class CryptoListsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
 
+    }
+
+    private fun setupRecyclerView() {
+        cryptocurrenciesAdapter = CryptocurrencyAdapter()
+        binding.rvCryptocurrencies.adapter = cryptocurrenciesAdapter
+        cryptocurrenciesAdapter.onCryptocurrencyClickListener = { }
     }
 
     override fun onDestroyView() {
