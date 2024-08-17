@@ -1,4 +1,4 @@
-package com.example.cryptolist.search.data.api
+package com.example.cryptolist.search.data.source
 
 import com.example.cryptolist.search.data.dto.Response
 

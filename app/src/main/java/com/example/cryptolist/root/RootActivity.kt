@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cryptolist.R
 import com.example.cryptolist.databinding.ActivityRootBinding
-import com.example.cryptolist.search.presentation.CryptoListsFragment
+import com.example.cryptolist.search.presentation.fragment.CryptoListsFragment
 
 class RootActivity : AppCompatActivity() {
 

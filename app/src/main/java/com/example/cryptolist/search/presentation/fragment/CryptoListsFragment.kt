@@ -1,4 +1,4 @@
-package com.example.cryptolist.search.presentation
+package com.example.cryptolist.search.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.cryptolist.databinding.FragmentCryptoListsBinding
 import com.example.cryptolist.search.domain.model.Cryptocurrency
+import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
+import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
+import com.example.cryptolist.search.presentation.adapter.CryptocurrencyAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CryptoListsFragment : Fragment() {
