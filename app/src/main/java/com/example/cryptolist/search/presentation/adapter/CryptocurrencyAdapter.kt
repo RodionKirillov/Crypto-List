@@ -10,7 +10,7 @@ import com.example.cryptolist.search.presentation.view_holder.CryptocurrencyView
 class CryptocurrencyAdapter :
     ListAdapter<Cryptocurrency, CryptocurrencyViewHolder>(CryptocurrencyItemDiffCallback()) {
 
-    var onCryptocurrencyClickListener: ((Cryptocurrency) -> Unit)? = null
+    var onCryptoItemClickListener: ((Cryptocurrency) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptocurrencyViewHolder {
         val binding = CryptocurrencyItemBinding.inflate(
@@ -25,7 +25,7 @@ class CryptocurrencyAdapter :
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            onCryptocurrencyClickListener?.invoke(item)
+            onCryptoItemClickListener?.invoke(item)
         }
     }
 }

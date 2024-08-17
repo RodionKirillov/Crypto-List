@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptolist.search.domain.impl.GetCryptocurrencyListUseCase
+import com.example.cryptolist.search.domain.model.RUB_CURRENCY
 import com.example.cryptolist.search.domain.model.RequestResult
+import com.example.cryptolist.search.domain.model.USD_CURRENCY
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
+import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import kotlinx.coroutines.launch
 
 class CryptocurrencyViewModel(
@@ -17,7 +20,20 @@ class CryptocurrencyViewModel(
     val stateLiveData: LiveData<CryptocurrenciesSate> = _stateLiveData
 
     init {
-        getCryptocurrencies("rub")
+        getCryptocurrencies(USD_CURRENCY)
+    }
+
+    fun onUiEvent(event: CryptocurrencyUiEvent) {
+        when (event) {
+
+            is CryptocurrencyUiEvent.UsdCurrencyClick -> {
+                getCryptocurrencies(USD_CURRENCY)
+            }
+
+            is CryptocurrencyUiEvent.RubCurrencyClick -> {
+                getCryptocurrencies(RUB_CURRENCY)
+            }
+        }
     }
 
     private fun getCryptocurrencies(symbolSearch: String) {
@@ -36,7 +52,9 @@ class CryptocurrencyViewModel(
         when (requestResult) {
 
             is RequestResult.RequestContent -> {
-                renderSate(CryptocurrenciesSate.Content(cryptocurrencies = requestResult.cryptocurrencies))
+                renderSate(
+                    CryptocurrenciesSate.Content(cryptocurrencies = requestResult.cryptocurrencies)
+                )
             }
 
             is RequestResult.Error -> {
