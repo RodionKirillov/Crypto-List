@@ -1,4 +1,4 @@
-package com.example.cryptolist.search.presentation
+package com.example.cryptolist.search.presentation.view_holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide

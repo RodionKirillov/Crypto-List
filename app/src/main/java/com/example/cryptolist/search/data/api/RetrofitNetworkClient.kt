@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.cryptolist.search.data.dto.CryptocurrencySearchRequest
 import com.example.cryptolist.search.data.dto.CryptocurrencyListResponse
 import com.example.cryptolist.search.data.dto.Response
+import com.example.cryptolist.search.data.source.NetworkClient
 import com.example.cryptolist.util.ResourceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,22 +18,19 @@ class RetrofitNetworkClient(
 
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
-            return Response().apply { resultCode = -1 }
+            return Response().apply { resultCode = CONNECTION_ERROR }
         }
 
         if (dto !is CryptocurrencySearchRequest) {
-            return Response().apply { resultCode = -1 }
+            return Response().apply { resultCode = INCORRECT_REQUEST }
         }
 
         return withContext(Dispatchers.IO) {
             try {
-                Log.d("LOG_TAG", dto.toString())
                 val resp = coingeckoApiService.getCryptocurrencyList(dto.expression)
-                Log.d("LOG_TAG", resp.toString())
-                CryptocurrencyListResponse(resp).apply { resultCode = 200 }
+                CryptocurrencyListResponse(resp).apply { resultCode = SUCCESS }
             } catch (e: Throwable) {
-                Log.d("LOG_TAG", "catch ${e.toString()}")
-                Response().apply { resultCode = -1 }
+                Response().apply { resultCode = ERROR_404 }
             }
         }
     }

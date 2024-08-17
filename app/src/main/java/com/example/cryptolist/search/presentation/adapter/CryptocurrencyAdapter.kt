@@ -1,10 +1,11 @@
-package com.example.cryptolist.search.presentation
+package com.example.cryptolist.search.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.cryptolist.databinding.CryptocurrencyItemBinding
 import com.example.cryptolist.search.domain.model.Cryptocurrency
+import com.example.cryptolist.search.presentation.view_holder.CryptocurrencyViewHolder
 
 class CryptocurrencyAdapter :
     ListAdapter<Cryptocurrency, CryptocurrencyViewHolder>(CryptocurrencyItemDiffCallback()) {

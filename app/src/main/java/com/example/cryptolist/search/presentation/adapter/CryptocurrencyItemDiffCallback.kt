@@ -1,4 +1,4 @@
-package com.example.cryptolist.search.presentation
+package com.example.cryptolist.search.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cryptolist.search.domain.model.Cryptocurrency

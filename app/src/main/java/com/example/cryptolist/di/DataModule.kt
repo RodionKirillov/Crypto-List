@@ -1,7 +1,7 @@
 package com.example.cryptolist.di
 
 import com.example.cryptolist.search.data.api.CoingeckoApiService
-import com.example.cryptolist.search.data.api.NetworkClient
+import com.example.cryptolist.search.data.source.NetworkClient
 import com.example.cryptolist.search.data.api.RetrofitNetworkClient
 import com.example.cryptolist.search.data.mapper.SearchDtoMapper
 import org.koin.dsl.module

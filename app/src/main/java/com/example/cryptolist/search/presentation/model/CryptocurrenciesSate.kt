@@ -1,4 +1,4 @@
-package com.example.cryptolist.search.presentation
+package com.example.cryptolist.search.presentation.model
 
 import com.example.cryptolist.search.domain.model.Cryptocurrency
 
