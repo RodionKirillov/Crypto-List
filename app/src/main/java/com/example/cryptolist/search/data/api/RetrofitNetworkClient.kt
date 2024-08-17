@@ -35,7 +35,6 @@ class RetrofitNetworkClient(
         }
     }
 
-
     private fun isConnected(): Boolean {
         val connectivityManager = ResourceProvider.application.getSystemService(
             Context.CONNECTIVITY_SERVICE

@@ -10,6 +10,7 @@ import com.example.cryptolist.search.domain.model.Cryptocurrency
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
 import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
 import com.example.cryptolist.search.presentation.adapter.CryptocurrencyAdapter
+import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CryptoListsFragment : Fragment() {
@@ -17,7 +18,7 @@ class CryptoListsFragment : Fragment() {
     private var _binding: FragmentCryptoListsBinding? = null
     private val binding get() = _binding!!
 
-    private val cryptocurrencyViewModel: CryptocurrencyViewModel by viewModel()
+    private val viewModel: CryptocurrencyViewModel by viewModel()
     private lateinit var cryptocurrenciesAdapter: CryptocurrencyAdapter
 
     override fun onCreateView(
@@ -32,15 +33,46 @@ class CryptoListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        cryptocurrencyViewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
+        viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             renderState(state)
+            setupOnClickListeners()
+        }
+    }
+
+    private fun setupOnClickListeners() {
+        binding.refreshButton.setOnClickListener {
+            currentSymbolChecked()
+        }
+        binding.chipsUsd.setOnClickListener {
+            clickOnUsdSymbol()
+        }
+        binding.chipsRub.setOnClickListener {
+            clickOnRubSymbol()
         }
     }
 
     private fun setupRecyclerView() {
         cryptocurrenciesAdapter = CryptocurrencyAdapter()
         binding.rvCryptocurrencies.adapter = cryptocurrenciesAdapter
-        cryptocurrenciesAdapter.onCryptocurrencyClickListener = { }
+        cryptocurrenciesAdapter.onCryptoItemClickListener = { }
+    }
+
+    private fun currentSymbolChecked() {
+        if (binding.chipsUsd.isChecked) {
+            viewModel.onUiEvent(CryptocurrencyUiEvent.UsdCurrencyClick)
+        } else {
+            viewModel.onUiEvent(CryptocurrencyUiEvent.RubCurrencyClick)
+        }
+    }
+
+    private fun clickOnUsdSymbol() {
+        viewModel.onUiEvent(CryptocurrencyUiEvent.UsdCurrencyClick)
+        binding.chipsRub.isChecked = false
+    }
+
+    private fun clickOnRubSymbol() {
+        viewModel.onUiEvent(CryptocurrencyUiEvent.RubCurrencyClick)
+        binding.chipsUsd.isChecked = false
     }
 
     private fun renderState(state: CryptocurrenciesSate) {
