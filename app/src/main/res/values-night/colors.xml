@@ -4,12 +4,12 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="background_color">#FFFFFFFF</color>
-    <color name="text_color_1">#525252</color>
-    <color name="text_color_2">#9B9B9B</color>
+    <color name="background_color">#FF000000</color>
+    <color name="text_color_1">#FFFFFFFF</color>
+    <color name="text_color_2">#FFFFFFFF</color>
     <color name="orange_btc">#FF9F00</color>
     <color name="green_percent">#2A9D8F</color>
     <color name="red_percent">#EB5757</color>
-    <color name="orange_chips">#fbefdc</color>
+    <color name="orange_chips">#FF000000</color>
 
 </resources>
