@@ -92,22 +92,28 @@ class CryptoListsFragment : Fragment() {
     }
 
     private fun showContent(cryptocurrencies: List<Cryptocurrency>) {
-        binding.llContent.visibility = View.VISIBLE
-        binding.llError.visibility = View.GONE
-        binding.llLoading.visibility = View.GONE
+        with(binding) {
+            llContent.visibility = View.VISIBLE
+            llError.visibility = View.GONE
+            llLoading.visibility = View.GONE
+        }
         cryptocurrenciesAdapter.submitList(cryptocurrencies)
     }
 
     private fun showLoading() {
-        binding.llLoading.visibility = View.VISIBLE
-        binding.llError.visibility = View.GONE
-        binding.llContent.visibility = View.GONE
+        with(binding) {
+            llLoading.visibility = View.VISIBLE
+            llError.visibility = View.GONE
+            llContent.visibility = View.GONE
+        }
     }
 
     private fun showError() {
-        binding.llError.visibility = View.VISIBLE
-        binding.llContent.visibility = View.GONE
-        binding.llLoading.visibility = View.GONE
+        with(binding) {
+            llError.visibility = View.VISIBLE
+            llContent.visibility = View.GONE
+            llLoading.visibility = View.GONE
+        }
     }
 
     private fun launchCryptoDetailsFragment(id: String) {
