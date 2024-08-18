@@ -101,7 +101,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="13dp"
             android:text="@string/error_message"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="16sp" />
 
         <TextView
@@ -110,7 +110,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:text="@string/restart_message"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="16sp" />
 
         <Button

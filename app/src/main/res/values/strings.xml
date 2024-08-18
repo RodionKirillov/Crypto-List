@@ -6,4 +6,6 @@
     <string name="error_message">Произошла какая-то ошибка :(</string>
     <string name="restart_message">Попробуем снова?</string>
     <string name="restart">Попробовать</string>
+    <string name="description">Описание</string>
+    <string name="Categories">Категории</string>
 </resources>
