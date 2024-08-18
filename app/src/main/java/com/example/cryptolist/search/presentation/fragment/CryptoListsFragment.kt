@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.cryptolist.R
 import com.example.cryptolist.databinding.FragmentCryptoListsBinding
 import com.example.cryptolist.search.domain.model.Cryptocurrency
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
@@ -68,11 +70,13 @@ class CryptoListsFragment : Fragment() {
     private fun clickOnUsdSymbol() {
         viewModel.onUiEvent(CryptocurrencyUiEvent.UsdCurrencyClick)
         binding.chipsRub.isChecked = false
+        binding.chipsUsd.isChecked = true
     }
 
     private fun clickOnRubSymbol() {
         viewModel.onUiEvent(CryptocurrencyUiEvent.RubCurrencyClick)
         binding.chipsUsd.isChecked = false
+        binding.chipsRub.isChecked = true
     }
 
     private fun renderState(state: CryptocurrenciesSate) {
