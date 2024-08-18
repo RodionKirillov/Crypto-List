@@ -1,7 +1,9 @@
 package com.example.cryptolist.search.data.api
 
 import com.example.cryptolist.search.data.dto.CryptocurrencyDto
+import com.example.cryptolist.search.data.dto.details_dto.CryptocurrencyDetailsResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoingeckoApiService {
@@ -12,4 +14,9 @@ interface CoingeckoApiService {
     suspend fun getCryptocurrencyList(
         @Query("vs_currency") vsCurrency: String
     ): List<CryptocurrencyDto>
+
+    @GET("coins/{id}")
+    suspend fun getCryptocurrencyDetail(
+        @Path("id") id: String
+    ): CryptocurrencyDetailsResponse
 }
