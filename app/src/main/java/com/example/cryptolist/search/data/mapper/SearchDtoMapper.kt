@@ -1,5 +1,6 @@
 package com.example.cryptolist.search.data.mapper
 
+import com.example.cryptolist.details.data.dto.CryptocurrencyDetailsResponse
 import com.example.cryptolist.details.domain.model.CryptocurrencyDetails
 import com.example.cryptolist.search.data.dto.CryptocurrencyDto
 import com.example.cryptolist.search.data.dto.RUB_CURRENCY_DTO
@@ -26,9 +27,10 @@ class SearchDtoMapper {
         }
     }
 
-    fun map(cryptoDetailsDto: com.example.cryptolist.details.data.dto.CryptocurrencyDetailsResponse): CryptocurrencyDetails {
+    fun map(cryptoDetailsDto: CryptocurrencyDetailsResponse): CryptocurrencyDetails {
         return CryptocurrencyDetails(
             id = cryptoDetailsDto.id,
+            name = cryptoDetailsDto.name,
             image = cryptoDetailsDto.image.large,
             description = cryptoDetailsDto.description.en,
             categories = cryptoDetailsDto.categories

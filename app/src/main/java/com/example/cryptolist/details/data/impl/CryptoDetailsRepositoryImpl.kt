@@ -8,7 +8,7 @@ import com.example.cryptolist.search.data.api.SUCCESS
 import com.example.cryptolist.details.data.dto.CryptocurrencyDetailsSearchRequest
 import com.example.cryptolist.search.data.mapper.SearchDtoMapper
 import com.example.cryptolist.search.data.source.NetworkClient
-import com.example.cryptolist.search.domain.model.CryptoDetailsRequestResult
+import com.example.cryptolist.details.domain.model.CryptoDetailsRequestResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,6 +1,4 @@
-package com.example.cryptolist.search.domain.model
-
-import com.example.cryptolist.details.domain.model.CryptocurrencyDetails
+package com.example.cryptolist.details.domain.model
 
 sealed interface CryptoDetailsRequestResult {
 
