@@ -3,10 +3,11 @@ package com.example.cryptolist.search.data.api
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
-import com.example.cryptolist.search.data.dto.CryptocurrencySearchRequest
+import com.example.cryptolist.search.data.dto.CryptocurrencyDetailsSearchRequest
 import com.example.cryptolist.search.data.dto.CryptocurrencyListResponse
+import com.example.cryptolist.search.data.dto.CryptocurrencySearchRequest
 import com.example.cryptolist.search.data.dto.Response
+import com.example.cryptolist.search.data.dto.details_dto.CryptocurrencyDetailsResponse
 import com.example.cryptolist.search.data.source.NetworkClient
 import com.example.cryptolist.util.ResourceProvider
 import kotlinx.coroutines.Dispatchers
@@ -21,14 +22,28 @@ class RetrofitNetworkClient(
             return Response().apply { resultCode = CONNECTION_ERROR }
         }
 
-        if (dto !is CryptocurrencySearchRequest) {
+        if ((dto !is CryptocurrencySearchRequest) && (dto !is CryptocurrencyDetailsSearchRequest)) {
             return Response().apply { resultCode = INCORRECT_REQUEST }
         }
 
         return withContext(Dispatchers.IO) {
             try {
-                val resp = coingeckoApiService.getCryptocurrencyList(dto.expression)
-                CryptocurrencyListResponse(resp).apply { resultCode = SUCCESS }
+                val response = when (dto) {
+                    is CryptocurrencySearchRequest -> {
+                        CryptocurrencyListResponse(
+                            coingeckoApiService.getCryptocurrencyList(dto.expression)
+                        )
+
+                    }
+
+                    else -> {
+                        coingeckoApiService.getCryptocurrencyDetail(
+                            (dto as CryptocurrencyDetailsSearchRequest).expression
+                        )
+                    }
+                }
+
+                response.apply { resultCode = SUCCESS }
             } catch (e: Throwable) {
                 Response().apply { resultCode = ERROR_404 }
             }

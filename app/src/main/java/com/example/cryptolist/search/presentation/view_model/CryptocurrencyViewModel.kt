@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cryptolist.search.domain.impl.GetCryptocurrencyListUseCase
 import com.example.cryptolist.search.domain.model.RUB_CURRENCY
-import com.example.cryptolist.search.domain.model.RequestResult
+import com.example.cryptolist.search.domain.model.CryptoListRequestResult
 import com.example.cryptolist.search.domain.model.USD_CURRENCY
+import com.example.cryptolist.search.domain.use_cases.GetCryptocurrencyListUseCase
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
 import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import kotlinx.coroutines.launch
@@ -48,16 +48,16 @@ class CryptocurrencyViewModel(
         }
     }
 
-    private fun processResult(requestResult: RequestResult) {
-        when (requestResult) {
+    private fun processResult(cryptoListRequestResult: CryptoListRequestResult) {
+        when (cryptoListRequestResult) {
 
-            is RequestResult.RequestContent -> {
+            is CryptoListRequestResult.Content -> {
                 renderSate(
-                    CryptocurrenciesSate.Content(cryptocurrencies = requestResult.cryptocurrencies)
+                    CryptocurrenciesSate.Content(cryptocurrencies = cryptoListRequestResult.cryptocurrencies)
                 )
             }
 
-            is RequestResult.Error -> {
+            is CryptoListRequestResult.Error -> {
                 renderSate(CryptocurrenciesSate.Error)
             }
         }
