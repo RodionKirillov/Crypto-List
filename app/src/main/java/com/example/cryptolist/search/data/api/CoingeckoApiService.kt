@@ -1,7 +1,6 @@
 package com.example.cryptolist.search.data.api
 
 import com.example.cryptolist.search.data.dto.CryptocurrencyDto
-import com.example.cryptolist.search.data.dto.details_dto.CryptocurrencyDetailsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,5 +17,5 @@ interface CoingeckoApiService {
     @GET("coins/{id}")
     suspend fun getCryptocurrencyDetail(
         @Path("id") id: String
-    ): CryptocurrencyDetailsResponse
+    ): com.example.cryptolist.details.data.dto.CryptocurrencyDetailsResponse
 }
