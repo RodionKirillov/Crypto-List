@@ -3,11 +3,10 @@ package com.example.cryptolist.search.data.api
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.example.cryptolist.search.data.dto.CryptocurrencyDetailsSearchRequest
+import com.example.cryptolist.details.data.dto.CryptocurrencyDetailsSearchRequest
 import com.example.cryptolist.search.data.dto.CryptocurrencyListResponse
 import com.example.cryptolist.search.data.dto.CryptocurrencySearchRequest
 import com.example.cryptolist.search.data.dto.Response
-import com.example.cryptolist.search.data.dto.details_dto.CryptocurrencyDetailsResponse
 import com.example.cryptolist.search.data.source.NetworkClient
 import com.example.cryptolist.util.ResourceProvider
 import kotlinx.coroutines.Dispatchers
