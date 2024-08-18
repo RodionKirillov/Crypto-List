@@ -7,7 +7,7 @@
 
         <item name="colorSecondaryContainer">@color/orange_chips</item>
 
-        <item name="android:colorBackground">@color/orange_btc</item>
+<!--        <item name="android:colorBackground">@color/orange_btc</item>-->
     </style>
 
     <style name="Theme.CryptoList" parent="Base.Theme.CryptoList" />

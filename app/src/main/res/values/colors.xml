@@ -5,6 +5,7 @@
 
 
     <color name="background_color">#FFFFFFFF</color>
+    <color name="background_colo_night">#FF000000</color>
     <color name="text_color_1">#525252</color>
     <color name="text_color_2">#9B9B9B</color>
     <color name="orange_btc">#FF9F00</color>

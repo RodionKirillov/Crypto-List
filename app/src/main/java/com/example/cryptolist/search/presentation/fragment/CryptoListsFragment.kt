@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.cryptolist.R
 import com.example.cryptolist.databinding.FragmentCryptoListsBinding
+import com.example.cryptolist.details.presentation.fragment.CryptoDetailsFragment
 import com.example.cryptolist.search.domain.model.Cryptocurrency
-import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
-import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
 import com.example.cryptolist.search.presentation.adapter.CryptocurrencyAdapter
+import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
 import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
+import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CryptoListsFragment : Fragment() {
@@ -35,9 +36,9 @@ class CryptoListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupOnClickListeners()
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             renderState(state)
-            setupOnClickListeners()
         }
     }
 
@@ -56,7 +57,10 @@ class CryptoListsFragment : Fragment() {
     private fun setupRecyclerView() {
         cryptocurrenciesAdapter = CryptocurrencyAdapter()
         binding.rvCryptocurrencies.adapter = cryptocurrenciesAdapter
-        cryptocurrenciesAdapter.onCryptoItemClickListener = { }
+
+        cryptocurrenciesAdapter.onCryptoItemClickListener = { cryptoId ->
+            launchCryptoDetailsFragment(cryptoId)
+        }
     }
 
     private fun currentSymbolChecked() {
@@ -104,6 +108,14 @@ class CryptoListsFragment : Fragment() {
         binding.llError.visibility = View.VISIBLE
         binding.llContent.visibility = View.GONE
         binding.llLoading.visibility = View.GONE
+    }
+
+    private fun launchCryptoDetailsFragment(id: String) {
+        parentFragmentManager.commit {
+            replace(R.id.fragmentContainer, CryptoDetailsFragment.newInstance(cryptoID = id))
+            addToBackStack(null)
+            setReorderingAllowed(true)
+        }
     }
 
     override fun onDestroyView() {
