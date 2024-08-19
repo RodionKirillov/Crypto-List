@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.commit
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.cryptolist.R
 import com.example.cryptolist.databinding.FragmentCryptoListsBinding
 import com.example.cryptolist.details.presentation.fragment.CryptoDetailsFragment
@@ -17,8 +16,6 @@ import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
 import com.example.cryptolist.util.BindingFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CryptoListsFragment : BindingFragment<FragmentCryptoListsBinding>() {
@@ -140,16 +137,10 @@ class CryptoListsFragment : BindingFragment<FragmentCryptoListsBinding>() {
 
     private fun launchCryptoDetailsFragment(id: String) {
         if (clickDebounce()) {
-            parentFragmentManager.commit {
-                replace(R.id.fragmentContainer, CryptoDetailsFragment.newInstance(cryptoID = id))
-                addToBackStack(null)
-                setReorderingAllowed(true)
-            }
+            findNavController().navigate(
+                R.id.action_cryptoListsFragment_to_cryptoDetailsFragment,
+                CryptoDetailsFragment.createArgs(id)
+            )
         }
-    }
-
-    companion object {
-
-        fun newInstance() = CryptoListsFragment()
     }
 }

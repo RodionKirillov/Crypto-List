@@ -3,9 +3,7 @@ package com.example.cryptolist.root
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cryptolist.R
 import com.example.cryptolist.databinding.ActivityRootBinding
-import com.example.cryptolist.search.presentation.fragment.CryptoListsFragment
 
 class RootActivity : AppCompatActivity() {
 
@@ -16,12 +14,5 @@ class RootActivity : AppCompatActivity() {
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(
-                R.id.fragmentContainer,
-                CryptoListsFragment.newInstance()
-            ).commit()
-        }
     }
 }
