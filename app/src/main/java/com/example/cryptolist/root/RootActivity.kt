@@ -17,9 +17,11 @@ class RootActivity : AppCompatActivity() {
         setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        supportFragmentManager.beginTransaction().add(
-            R.id.fragmentContainer,
-            CryptoListsFragment.newInstance()
-        ).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().add(
+                R.id.fragmentContainer,
+                CryptoListsFragment.newInstance()
+            ).commit()
+        }
     }
 }
