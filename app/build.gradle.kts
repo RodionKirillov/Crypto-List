@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    //SwipeRefreshLayout
+    implementation (libs.androidx.swiperefreshlayout)
     //Coroutines
     implementation(libs.kotlinx.coroutines.android)
     //Jetpack Navigation Component
@@ -50,8 +52,6 @@ dependencies {
     implementation(libs.fragment.ktx)
     //Fragment
     implementation(libs.fragment.ktx)
-    //ViewPager2
-    implementation(libs.androidx.viewpager2)
     //Material Design
     implementation(libs.material)
     //KOIN

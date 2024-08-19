@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import com.example.cryptolist.R
 import com.example.cryptolist.databinding.FragmentCryptoListsBinding
 import com.example.cryptolist.details.presentation.fragment.CryptoDetailsFragment
@@ -14,31 +15,37 @@ import com.example.cryptolist.search.presentation.adapter.CryptocurrencyAdapter
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
 import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import com.example.cryptolist.search.presentation.view_model.CryptocurrencyViewModel
+import com.example.cryptolist.util.BindingFragment
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CryptoListsFragment : Fragment() {
-
-    private var _binding: FragmentCryptoListsBinding? = null
-    private val binding get() = _binding!!
+class CryptoListsFragment : BindingFragment<FragmentCryptoListsBinding>() {
 
     private val viewModel: CryptocurrencyViewModel by viewModel()
     private lateinit var cryptocurrenciesAdapter: CryptocurrencyAdapter
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCryptoListsBinding.inflate(layoutInflater)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentCryptoListsBinding {
+        return FragmentCryptoListsBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupOnClickListeners()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             renderState(state)
+        }
+        viewModel.showSnackBar.observe(viewLifecycleOwner) {
+            showSnackBar()
         }
     }
 
@@ -52,15 +59,17 @@ class CryptoListsFragment : Fragment() {
         binding.chipsRub.setOnClickListener {
             clickOnRubSymbol()
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            swipedOnRefresh()
+        }
+        cryptocurrenciesAdapter.onCryptoItemClickListener = { cryptoId ->
+            launchCryptoDetailsFragment(cryptoId)
+        }
     }
 
     private fun setupRecyclerView() {
         cryptocurrenciesAdapter = CryptocurrencyAdapter()
         binding.rvCryptocurrencies.adapter = cryptocurrenciesAdapter
-
-        cryptocurrenciesAdapter.onCryptoItemClickListener = { cryptoId ->
-            launchCryptoDetailsFragment(cryptoId)
-        }
     }
 
     private fun currentSymbolChecked() {
@@ -83,6 +92,10 @@ class CryptoListsFragment : Fragment() {
         binding.chipsRub.isChecked = true
     }
 
+    private fun swipedOnRefresh() {
+        viewModel.onUiEvent(CryptocurrencyUiEvent.SwipedOnRefresh)
+    }
+
     private fun renderState(state: CryptocurrenciesSate) {
         when (state) {
             is CryptocurrenciesSate.Content -> showContent(state.cryptocurrencies)
@@ -91,11 +104,20 @@ class CryptoListsFragment : Fragment() {
         }
     }
 
+    private fun showSnackBar() {
+        Snackbar.make(binding.root, getString(R.string.error_loading), Snackbar.LENGTH_SHORT)
+            .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red))
+            .show()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
     private fun showContent(cryptocurrencies: List<Cryptocurrency>) {
         with(binding) {
             llContent.visibility = View.VISIBLE
             llError.visibility = View.GONE
             llLoading.visibility = View.GONE
+            swipeRefreshLayout.isRefreshing = false
         }
         cryptocurrenciesAdapter.submitList(cryptocurrencies)
     }
@@ -117,16 +139,13 @@ class CryptoListsFragment : Fragment() {
     }
 
     private fun launchCryptoDetailsFragment(id: String) {
-        parentFragmentManager.commit {
-            replace(R.id.fragmentContainer, CryptoDetailsFragment.newInstance(cryptoID = id))
-            addToBackStack(null)
-            setReorderingAllowed(true)
+        if (clickDebounce()) {
+            parentFragmentManager.commit {
+                replace(R.id.fragmentContainer, CryptoDetailsFragment.newInstance(cryptoID = id))
+                addToBackStack(null)
+                setReorderingAllowed(true)
+            }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
