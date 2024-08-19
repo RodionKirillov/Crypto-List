@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cryptolist.databinding.FragmentCryptoDetailsBinding
 import com.example.cryptolist.details.domain.model.CryptocurrencyDetails
@@ -48,7 +49,7 @@ class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
 
     private fun setupOnClickListeners() {
         binding.toolBar.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().navigateUp()
         }
         binding.refreshButton.setOnClickListener {
             viewModel.onUiEvent(CryptoDetailsUiEvent.ClickOnRefreshButton)
@@ -107,8 +108,7 @@ class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
 
         private const val CRYPTO_ID = "CRYPTO_ID"
 
-        fun newInstance(cryptoID: String) = CryptoDetailsFragment().apply {
-            arguments = bundleOf(CRYPTO_ID to cryptoID)
-        }
+        fun createArgs(cryptoID: String): Bundle =
+            bundleOf(CRYPTO_ID to cryptoID)
     }
 }
