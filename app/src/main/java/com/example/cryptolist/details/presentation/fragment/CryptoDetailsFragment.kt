@@ -7,20 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.cryptolist.databinding.FragmentCryptoDetailsBinding
 import com.example.cryptolist.details.domain.model.CryptocurrencyDetails
 import com.example.cryptolist.details.presentation.model.CryptoDetailsUiEvent
 import com.example.cryptolist.details.presentation.model.DetailsState
 import com.example.cryptolist.details.presentation.view_model.CryptoDetailsViewModel
+import com.example.cryptolist.util.BindingFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class CryptoDetailsFragment : Fragment() {
-
-    private var _binding: FragmentCryptoDetailsBinding? = null
-    private val binding get() = _binding!!
+class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
 
     private val cryptoID by lazy {
         requireArguments().getString(CRYPTO_ID)
@@ -30,18 +27,20 @@ class CryptoDetailsFragment : Fragment() {
         parametersOf(cryptoID)
     }
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCryptoDetailsBinding.inflate(layoutInflater)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentCryptoDetailsBinding {
+        return FragmentCryptoDetailsBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupOnClickListeners()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
@@ -90,22 +89,18 @@ class CryptoDetailsFragment : Fragment() {
     }
 
     private fun initDetails(details: CryptocurrencyDetails) {
-        binding.tvCryptoDescription.text = Html.fromHtml(
-            details.description, Html.FROM_HTML_MODE_COMPACT
-        )
-        binding.tvCryptoDescription.movementMethod = LinkMovementMethod.getInstance()
-        binding.toolBar.title = details.name
-        Glide.with(requireContext())
-            .load(details.image)
-            .centerCrop()
-            .into(binding.ivCrypto)
-        binding.tvCryptoCategories.text = details.categories.joinToString()
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        with(binding) {
+            tvCryptoDescription.text = Html.fromHtml(
+                details.description, Html.FROM_HTML_MODE_COMPACT
+            )
+            tvCryptoDescription.movementMethod = LinkMovementMethod.getInstance()
+            toolBar.title = details.name
+            Glide.with(requireContext())
+                .load(details.image)
+                .centerCrop()
+                .into(ivCrypto)
+            tvCryptoCategories.text = details.categories.joinToString()
+        }
     }
 
     companion object {

@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
+        app:titleTextAppearance="@style/CustomToolbarTitleTextAppearance"
         tools:title="Bitcoin" />
 
 
@@ -85,6 +86,7 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="34dp"
                 android:lineSpacingExtra="6dp"
                 android:textAlignment="textStart"
                 android:textSize="16sp" />
@@ -136,6 +138,8 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/orange_btc"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/restart"
             android:textColor="@color/white"
             app:cornerRadius="8dp" />
