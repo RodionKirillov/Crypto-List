@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,9 +34,40 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+
+    //SwipeRefreshLayout
+    implementation (libs.androidx.swiperefreshlayout)
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    //Jetpack Navigation Component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.fragment.ktx)
+    //Fragment
+    implementation(libs.fragment.ktx)
+    //Material Design
+    implementation(libs.material)
+    //KOIN
+    implementation(libs.koin.android)
+    //MVVM
+    implementation(libs.androidx.core.ktx.v1120)
+    //GSON
+    implementation(libs.gson)
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    // Glide
+    implementation(libs.google.material.v1110)
+    implementation(libs.glide)
+    implementation(libs.androidx.activity.v182)
+    annotationProcessor(libs.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
