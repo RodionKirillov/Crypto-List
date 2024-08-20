@@ -59,8 +59,8 @@ class CryptoListsFragment : BindingFragment<FragmentCryptoListsBinding>() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             swipedOnRefresh()
         }
-        cryptocurrenciesAdapter.onCryptoItemClickListener = { cryptoId ->
-            launchCryptoDetailsFragment(cryptoId)
+        cryptocurrenciesAdapter.onCryptoItemClickListener = { cryptoId, cryptoName ->
+            launchCryptoDetailsFragment(cryptoId, cryptoName)
         }
     }
 
@@ -135,11 +135,14 @@ class CryptoListsFragment : BindingFragment<FragmentCryptoListsBinding>() {
         }
     }
 
-    private fun launchCryptoDetailsFragment(id: String) {
+    private fun launchCryptoDetailsFragment(id: String, cryptoName: String) {
         if (clickDebounce()) {
             findNavController().navigate(
                 R.id.action_cryptoListsFragment_to_cryptoDetailsFragment,
-                CryptoDetailsFragment.createArgs(id)
+                CryptoDetailsFragment.createArgs(
+                    cryptoID = id,
+                    cryptoName = cryptoName
+                )
             )
         }
     }

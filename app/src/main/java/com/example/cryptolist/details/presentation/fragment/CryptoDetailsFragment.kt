@@ -24,6 +24,10 @@ class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
         requireArguments().getString(CRYPTO_ID)
     }
 
+    private val cryptoName by lazy {
+        requireArguments().getString(CRYPTO_NAME)
+    }
+
     private val viewModel: CryptoDetailsViewModel by viewModel {
         parametersOf(cryptoID)
     }
@@ -86,6 +90,7 @@ class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
             llError.visibility = View.VISIBLE
             llLoading.visibility = View.GONE
             svDetails.visibility = View.GONE
+            toolBar.title = cryptoName.toString()
         }
     }
 
@@ -107,8 +112,12 @@ class CryptoDetailsFragment : BindingFragment<FragmentCryptoDetailsBinding>() {
     companion object {
 
         private const val CRYPTO_ID = "CRYPTO_ID"
+        private const val CRYPTO_NAME = "CRYPTO_NAME"
 
-        fun createArgs(cryptoID: String): Bundle =
-            bundleOf(CRYPTO_ID to cryptoID)
+        fun createArgs(cryptoID: String, cryptoName: String): Bundle =
+            bundleOf(
+                CRYPTO_ID to cryptoID,
+                CRYPTO_NAME to cryptoName
+            )
     }
 }
