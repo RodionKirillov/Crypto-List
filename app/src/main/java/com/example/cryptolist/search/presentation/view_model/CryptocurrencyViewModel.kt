@@ -11,6 +11,8 @@ import com.example.cryptolist.search.domain.use_cases.GetCryptocurrencyListUseCa
 import com.example.cryptolist.search.presentation.model.CryptocurrenciesSate
 import com.example.cryptolist.search.presentation.model.CryptocurrencyUiEvent
 import com.example.cryptolist.util.SingleLiveEvent
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class CryptocurrencyViewModel(
@@ -50,24 +52,21 @@ class CryptocurrencyViewModel(
 
     private fun getCryptocurrencies(symbolSearch: String) {
         renderSate(CryptocurrenciesSate.Loading)
-
-        viewModelScope.launch {
-            getCryptocurrencyListUseCase
-                .invoke(symbolSearch)
-                .collect { requestResult ->
-                    processResult(requestResult)
-                }
-        }
+        getCryptocurrencyListUseCase
+            .invoke(symbolSearch)
+            .onEach { requestResult ->
+                processResult(requestResult)
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun updateList() {
-        viewModelScope.launch {
-            getCryptocurrencyListUseCase
-                .invoke(currentCurrency.value)
-                .collect { requestResult ->
-                    updateResult(requestResult)
-                }
-        }
+        getCryptocurrencyListUseCase
+            .invoke(currentCurrency.value)
+            .onEach { requestResult ->
+                updateResult(requestResult)
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun processResult(cryptoListRequestResult: CryptoListRequestResult) {
